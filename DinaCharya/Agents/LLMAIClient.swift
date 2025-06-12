@@ -10,22 +10,18 @@ import Combine
 
 final class LLMAIClient: LLMServiceable {
     
-    private let endpoint = URL(string: "https://api.openai.com/v1/chat/completions")!
+    private let openAIUrlString = "https://api.openai.com/v1/chat/completions"
 
-    func sendChat(messages: [[String: String]], model: String = "gpt-4o-mini") async throws -> String {
-        guard let openAIAPIKey = Bundle.main.openAIAPIKey else {
-            throw NSError(domain: "LLMAIClient", code: 1001, userInfo: [NSLocalizedDescriptionKey : "OpenAI API key not found in bundle."])
+    // Sends a chat request to the OpenAI API and returns the response content.
+    func sendMessage(messages: [[String: String]], model: String) async throws -> String {
+        
+        guard let request = makeUrlRequest(messages: messages, model: model) else {
+            throw NSError(
+                domain: "LLMAIClient",
+                code: 1001,
+                userInfo: [NSLocalizedDescriptionKey : "OpenAI API key not found in bundle."]
+            )
         }
-        var request = URLRequest(url: endpoint)
-        request.httpMethod = "POST"
-        request.setValue("Bearer \(openAIAPIKey)", forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let body: [String: Any] = [
-            "model": model,
-            "messages": messages
-        ]
-        request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
         let (data, _) = try await URLSession.shared.data(for: request)
 
@@ -36,9 +32,37 @@ final class LLMAIClient: LLMServiceable {
             let message = choices.first?["message"] as? [String: Any],
             let content = message["content"] as? String
         else {
-            throw NSError(domain: "Parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse LLM response"])
+            throw NSError(
+                domain: "Parsing",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to parse LLM response"]
+            )
         }
 
         return content
+    }
+    
+    // Creates a URLRequest for the OpenAI API with the provided messages and model.
+    private func makeUrlRequest(messages: [[String: String]], model: String) -> URLRequest? {
+        
+        // TODO: Make sure the OpenAIAPIKey is added into the AppInfo.plist file
+        // Generate an API key on "https://platform.openai.com/settings/organization/api-keys"
+        guard let openAIAPIKey = Bundle.main.openAIAPIKey,
+              let openAIURL = URL(string: openAIUrlString) else {
+            return nil
+        }
+        
+        var request = URLRequest(url: openAIURL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(openAIAPIKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: Any] = [
+            "model": model,
+            "messages": messages
+        ]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        
+        return request
     }
 }
