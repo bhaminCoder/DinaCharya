@@ -6,5 +6,5 @@
 //
 
 protocol LLMServiceable {
-    func sendChat(messages: [[String: String]], model: String) async throws -> String
+    func sendMessage(messages: [[String: String]], model: String) async throws -> String
 }

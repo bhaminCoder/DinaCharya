@@ -9,6 +9,7 @@ import Foundation
 
 struct PromptBuilder {
     
+    // Creates a structured set of messages for the LLM based on the user's prompt.
     static func makeMessages(for prompt: String) -> [[String: String]] {
         let systemPrompt = """
         You are a planning assistant. Based on the user's prompt, return a JSON array of steps as strings.

@@ -15,11 +15,12 @@ final class JugaadGPT: ChecklistGenerating {
         self.llmService = llmService
     }
 
+    // Generates a checklist based on the provided prompt using the LLM service.
     func generateChecklist(from prompt: String) async throws -> [String] {
         
         let messages = PromptBuilder.makeMessages(for: prompt)
         
-        let response = try await llmService.sendChat(
+        let response = try await llmService.sendMessage(
             messages: messages,
             model: "gpt-4o-mini"
         )
