@@ -47,8 +47,8 @@ Before making any API requests, add your [OpenAI API Key](https://platform.opena
 <key>OPENAI_API_KEY</key>
 <string>your-api-key-here</string>
 ```
-![Simulator Screenshot - iPhone 16 Pro - 2025-06-12 at 23 30 21](https://github.com/user-attachments/assets/8a1459d8-c616-4d38-8f92-f7ca69efc0e9)
-![Simulator Screenshot - iPhone 16 Pro - 2025-06-12 at 23 30 11](https://github.com/user-attachments/assets/12920f76-b515-44b4-bfb5-a7d452020d1e)
+
+![Dinacharya](https://github.com/user-attachments/assets/322779b6-9521-41e8-a993-7f9d24758634)
 
 
 
