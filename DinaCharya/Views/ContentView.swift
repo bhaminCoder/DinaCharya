@@ -22,7 +22,7 @@ struct ContentView: View {
 
                     textFieldView
                     
-                    generateButton
+                    buttonView
 
                     checklistView
                 }
@@ -63,12 +63,20 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    private var generateButton: some View {
-        Button("Generate Plan") {
-            Task { await viewModel.generateChecklist() }
+    private var buttonView: some View {
+        HStack(alignment: .center, spacing: 20.0) {
+            Button("Generate Plan") {
+                Task { await viewModel.trigger(intent: .generate) }
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.isLoading || viewModel.prompt.isEmpty)
+            
+            Button("Refresh everything!") {
+                Task { await viewModel.trigger(intent: .reset) }
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.isLoading || viewModel.prompt.isEmpty)
         }
-        .buttonStyle(.borderedProminent)
-        .disabled(viewModel.isLoading || viewModel.prompt.isEmpty)
     }
     
     @ViewBuilder
