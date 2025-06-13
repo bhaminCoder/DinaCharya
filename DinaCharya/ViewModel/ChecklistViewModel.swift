@@ -15,12 +15,26 @@ final class ChecklistViewModel: ObservableObject {
 
     private let checklistAgent: ChecklistGenerating
 
+    enum Intent {
+        case generate
+        case reset
+    }
+    
+    func trigger(intent: Intent) async {
+        switch intent {
+        case .generate:
+           await generateChecklist()
+        case .reset:
+            reset()
+        }
+    }
+    
     init(agent: ChecklistGenerating = JugaadGPT()) {
         self.checklistAgent = agent
     }
 
     @MainActor
-    func generateChecklist() async {
+    private func generateChecklist() async {
         isLoading = true
         errorMessage = nil
 
@@ -32,5 +46,12 @@ final class ChecklistViewModel: ObservableObject {
         }
 
         isLoading = false
+    }
+    
+    private func reset() {
+        prompt = ""
+        checklist = []
+        isLoading = false
+        errorMessage = nil
     }
 }
