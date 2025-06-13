@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DinaCharyaView.swift
 //  DinaCharya
 //
 //  Created by Hejib Vinayak (BT: Product Dev. & Eng.: Product Engineering CoE) on 12/06/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DinaCharyaView: View {
     
     // Using StateObject to manage the checklist view model
     @StateObject private var viewModel = ChecklistViewModel()

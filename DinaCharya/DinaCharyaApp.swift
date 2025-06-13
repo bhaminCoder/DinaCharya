@@ -11,7 +11,7 @@ import SwiftUI
 struct DinaCharyaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DinaCharyaView()
                 .preferredColorScheme(.dark)
         }
     }
