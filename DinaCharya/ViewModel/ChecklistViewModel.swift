@@ -8,6 +8,7 @@
 import Combine
 
 final class ChecklistViewModel: ObservableObject {
+    
     @Published var prompt: String = ""
     @Published var checklist: [ChecklistItem] = []
     @Published var isLoading = false
@@ -25,7 +26,7 @@ final class ChecklistViewModel: ObservableObject {
         case .generate:
            await generateChecklist()
         case .reset:
-            reset()
+            await reset()
         }
     }
     
@@ -48,7 +49,8 @@ final class ChecklistViewModel: ObservableObject {
         isLoading = false
     }
     
-    private func reset() {
+    @MainActor
+    private func reset() async {
         prompt = ""
         checklist = []
         isLoading = false
