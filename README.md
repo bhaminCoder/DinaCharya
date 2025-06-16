@@ -59,7 +59,4 @@ Before making any API requests, add your [OpenAI API Key](https://platform.opena
 ```
 
 
-![Dinacharya](https://github.com/user-attachments/assets/322779b6-9521-41e8-a993-7f9d24758634)
-
-
 
