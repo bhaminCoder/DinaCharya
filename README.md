@@ -1,6 +1,6 @@
 # 🧠 DinaCharya – Agentic AI Demo for iOS
 
-**DinaCharya** is a GenAI-powered planning agent built as part of the **SwiftCircle** event.
+**DinaCharya** is a GenAI-powered planning agent built as part of the **SwiftCircle** event at H&M office, Bengaluru.
 It showcases how iOS developers can harness GPT models and prompts to build intelligent agents.
 The project demonstrates agentic AI concepts applied to personal planning and productivity.
 A practical guide for integrating LLMs and prompt engineering into real iOS applications.
